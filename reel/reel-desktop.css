@@ -1,0 +1,189 @@
+/* Reel Page - Desktop CSS */
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Reel Page Container */
+.reel-page-container {
+    min-height: 100vh;
+    background: #000;
+    color: white;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    
+    /* Fade in animation */
+    animation: fadeInPage 0.6s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reel Page Header */
+.reel-page-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 15px 30px;
+    border-bottom: 2px solid #dc2626;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.reel-page-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.8em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+    letter-spacing: 4px;
+    text-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.8), 
+        0 0 60px rgba(255, 255, 255, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 100px rgba(255, 255, 255, 0.2);
+    line-height: 1.05;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: subtleShine 4s ease-in-out infinite alternate;
+}
+
+@keyframes subtleShine {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+    }
+}
+
+/* Back Button - Desktop (Cylindrical) */
+.back-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    flex-shrink: 0;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Main Content */
+.reel-main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 70px);
+    padding: 0 20px;
+}
+
+/* Video Container */
+.video-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+/* Custom Scrollbar Styling */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 10px 0;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin: 2px 0;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive adjustments for smaller desktop screens */
+@media (max-width: 1200px) {
+    .video-container {
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .video-container {
+        max-width: 800px;
+    }
+    
+    .reel-page-title {
+        font-size: 2.4em;
+        letter-spacing: 3px;
+    }
+}

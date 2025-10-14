@@ -1,0 +1,421 @@
+
+/* Photos Page - Desktop CSS */
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%);
+    color: white;
+    overflow: auto;
+    height: auto;
+    min-height: 100vh;
+}
+
+/* Photos Page Container */
+.photos-page-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%);
+    color: white;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    
+    /* Fade in animation */
+    animation: fadeInPage 0.6s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Photos Page Header */
+.photos-page-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13, 6, 24, 0.98);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 15px 30px;
+    border-bottom: 2px solid #dc2626;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.photos-page-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.8em;
+    font-weight: bold;
+    color: #dc2626;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+    letter-spacing: 4px;
+    text-shadow: 
+        0 0 30px rgba(220, 38, 38, 0.8), 
+        0 0 60px rgba(220, 38, 38, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 100px rgba(220, 38, 38, 0.2);
+    line-height: 1.05;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: subtleShine 4s ease-in-out infinite alternate;
+}
+
+@keyframes subtleShine {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+    }
+}
+
+/* Back Button - Desktop (Cylindrical) */
+.back-button {
+    background: rgba(40, 40, 40, 0.9);
+    backdrop-filter: blur(15px) brightness(1.1);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #dc2626;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    min-height: 48px;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.back-button:hover {
+    background: rgba(60, 60, 60, 0.95);
+    color: #ef4444;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 0 12px rgba(255, 255, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Main Content */
+.photos-main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* Photo Gallery Columns */
+.photo-gallery-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 100%;
+    padding: 40px 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Individual Photo Column */
+.photo-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Column Order - Drama, Action, Commercial */
+.drama-column {
+    order: 1;
+}
+
+.action-column {
+    order: 2;
+}
+
+.commercial-column {
+    order: 3;
+}
+
+/* Column Titles */
+.column-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #dc2626;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Keep underline grey */
+}
+
+/* Individual Photo Item */
+.photo-item {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.photo-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Gallery Thumbnail Images */
+.gallery-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Specific positioning for images that need top alignment */
+.gallery-thumbnail[src*="IMG_4102.jpg"],
+.gallery-thumbnail[src*="IMG_3813.jpg"],
+.gallery-thumbnail[src*="IMG_4074.jpg"],
+.gallery-thumbnail[src*="IMG_4078.jpg"] {
+    object-position: top;
+}
+
+.photo-item:hover .gallery-thumbnail {
+    transform: scale(1.05);
+}
+
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+}
+
+.close-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+/* Custom Scrollbar Styling - Matching Other Pages */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 10px 0;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin: 2px 0;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design for Smaller Desktops */
+@media (max-width: 1200px) {
+    .photos-page-title {
+        font-size: 2.4em;
+    }
+    
+    .photo-gallery-columns {
+        gap: 30px;
+        max-width: 1200px;
+    }
+    
+    .column-title {
+        font-size: 1.6em;
+    }
+    
+    .gallery-thumbnail {
+        height: 180px;
+    }
+}
+
+@media (max-width: 900px) {
+    .photos-main-content {
+        padding: 20px 15px;
+    }
+    
+    .photo-gallery-columns {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        max-width: 500px;
+    }
+    
+    .column-title {
+        font-size: 1.4em;
+        letter-spacing: 1px;
+    }
+    
+    .gallery-thumbnail {
+        height: 160px;
+    }
+    
+    .photos-page-title {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 600px) {
+    .photos-page-header {
+        padding: 12px 20px;
+    }
+    
+    .photos-page-title {
+        font-size: 1.8em;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+    }
+    
+    .gallery-thumbnail {
+        height: 140px;
+    }
+    
+
+    
+    .modal-content {
+        max-width: 95vw;
+        max-height: 95vh;
+    }
+    
+    .modal-image {
+        max-height: 95vh;
+    }
+    
+
+    
+    .close-button {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+        top: -12px;
+        right: -12px;
+    }
+}
+
+/* Fade transition animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

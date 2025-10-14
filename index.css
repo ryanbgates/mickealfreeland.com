@@ -1,0 +1,1644 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%) !important;
+    height: 100%;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%) !important;
+    overflow: hidden;
+    height: 100vh;
+    /* Support for Safari's safe areas */
+    height: 100vh;
+    height: -webkit-fill-available; /* Safari mobile fallback */
+    /* Ensure content is hidden by default until loader is ready */
+    visibility: hidden;
+}
+
+/* Show body content only when loading is complete */
+body.content-ready {
+    visibility: visible;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%) !important;
+    /* Mobile-specific rendering optimization */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Home page specific: hide content initially to prevent flash during fade-in */
+body.home-page-loading {
+    visibility: hidden;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%) !important;
+    /* Ensure nothing shows during loading on mobile */
+    overflow: hidden;
+}
+
+/* Mobile-specific loading optimizations */
+@media (max-width: 768px) {
+    body.home-page-loading {
+        /* Force GPU acceleration for smooth mobile loading */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        /* Prevent any content flash */
+        visibility: hidden !important;
+        overflow: hidden !important;
+    }
+    
+    body.content-ready {
+        /* Smooth mobile transition to visible state */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        visibility: visible !important;
+        /* Enable scrolling after load */
+        overflow: hidden;
+        transition: visibility 0.3s ease-in-out;
+    }
+}
+
+/* ========== LOADING ANIMATION ========== */
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    /* Multiple transition formats for maximum compatibility */
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    -webkit-transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    -moz-transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    -ms-transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    -o-transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+.page-loader.fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Mobile-specific optimization for smooth fading */
+@media (max-width: 768px) {
+    .page-loader {
+        /* Force hardware acceleration for mobile */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        /* Ensure transition works on mobile webkit */
+        -webkit-transition: opacity 1s ease-out, visibility 1s ease-out;
+        transition: opacity 1s ease-out, visibility 1s ease-out;
+    }
+    
+    .page-loader.fade-out {
+        /* Extra specific for mobile */
+        opacity: 0 !important;
+        visibility: hidden !important;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.loader-logo {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Georgia', serif;
+    font-size: 0.9em;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px;
+    opacity: 0.9;
+    text-transform: lowercase;
+}
+
+@keyframes logoGlow {
+    0% { 
+        filter: brightness(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    }
+    100% { 
+        filter: brightness(1.1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+.spinner-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+}
+
+.spinner-ring:nth-child(2) {
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+    border-top-color: rgba(255, 255, 255, 0.7);
+    animation-duration: 1.8s;
+    animation-direction: reverse;
+}
+
+.spinner-ring:nth-child(3) {
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 30%;
+    border-top-color: rgba(255, 255, 255, 0.4);
+    animation-duration: 2.4s;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Georgia', serif;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Safari mobile viewport fix */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* CSS variables to keep marquees and center area in sync */
+:root {
+    /* Fixed marquee height - no longer zoom responsive */
+    --marquee-h: 150px;
+    /* Ultra minimal gap - fixed value */
+    --marquee-gap: 2px;
+    /* Middle column sizing targets - fixed values */
+    --center-min: 450px;         
+    --center-target: 500px;      /* Fixed height instead of vh */
+    --center-max: 780px;         
+    /* Minimum height for the menu container under the name */
+    --menu-min: 150px;
+}
+
+/* ========== BACKGROUND MARQUEES ========== */
+/* These run independently and never change */
+
+.background-marquees {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Behind everything */
+    overflow: hidden;
+    background: transparent; /* Ensure it doesn't block body background */
+    pointer-events: none; /* Allow events to pass through */
+    /* Force immediate animation start - but pause during mobile loading */
+    animation-play-state: running;
+    /* Mobile performance optimizations */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* Mobile loading state - pause animations until content is ready */
+@media (max-width: 768px) {
+    body.home-page-loading .background-marquees {
+        animation-play-state: paused;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+    
+    body.content-ready .background-marquees {
+        animation-play-state: running;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out 0.2s; /* Delayed fade-in */
+    }
+}
+
+.marquee {
+    position: absolute;
+    display: flex;
+    flex-direction: row; /* Horizontal marquees */
+    white-space: nowrap;
+    /* Essential animation properties from original working version */
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+    will-change: transform; /* Optimize for animation performance */
+}
+
+.marquee img {
+    width: auto; /* Natural width to show full image */
+    height: var(--marquee-h); /* Responsive, but capped by clamp */
+    object-fit: contain; /* Show full image without cropping */
+    margin: 0 12px; /* Slightly tighter spacing between images */
+    border-radius: 12px;
+    opacity: 1.0; /* Full opacity for maximum visibility */
+    filter: grayscale(0) brightness(1.15) contrast(1.05) saturate(1.1); /* No grayscale, boosted brightness, contrast, and saturation */
+    flex-shrink: 0; /* Prevent image compression */
+}
+
+/* Marquee moving right - HARD TOP EDGE */
+.marquee-right {
+    top: 0;
+    left: 0;
+    width: 200%; /* Essential for seamless infinite scroll */
+    height: var(--marquee-h);
+    z-index: 2; /* Within marquee container */
+    animation: slideRight 60s linear infinite;
+    animation-fill-mode: both; /* Ensure animation states are maintained */
+    animation-delay: 0s; /* Explicit no delay */
+}
+
+/* Marquee moving left - HARD BOTTOM EDGE */
+.marquee-left {
+    bottom: 0;
+    left: 0;
+    width: 200%; /* Essential for seamless infinite scroll */
+    height: var(--marquee-h);
+    z-index: 2; /* Within marquee container */
+    animation: slideLeft 60s linear infinite;
+    animation-fill-mode: both; /* Ensure animation states are maintained */
+    animation-delay: 0s; /* Explicit no delay */
+}
+
+/* Safari mobile viewport handling - URL bar at bottom */
+@supports (-webkit-touch-callout: none) {
+    /* Safari-specific: Account for bottom URL bar */
+    .marquee-left {
+        bottom: env(safe-area-inset-bottom, 0px) !important;
+    }
+    
+    /* Adjust headshot container for Safari bottom inset */
+    @media (max-width: 768px) {
+        .headshot-container {
+            bottom: calc(152px + env(safe-area-inset-bottom, 0px)) !important;
+        }
+    }
+}
+
+/* iOS Safari specific - handle dynamic viewport */
+@media (max-width: 768px) {
+    @supports (-webkit-touch-callout: none) {
+        /* Use dvh (dynamic viewport height) for Safari when available */
+        body {
+            height: 100dvh;
+        }
+        
+        .background-marquees {
+            height: 100dvh;
+        }
+        
+        /* Ensure marquees respect safe areas */
+        .marquee-left {
+            bottom: max(0px, env(safe-area-inset-bottom)) !important;
+        }
+        
+        .headshot-container {
+            bottom: calc(152px + max(0px, env(safe-area-inset-bottom))) !important;
+        }
+    }
+}
+
+/* Marquee animations with quicker fade on reset */
+@keyframes slideRight {
+    0% { transform: translateX(-140%); opacity: 0; }
+    2% { opacity: 1; }
+    98% { opacity: 1; }
+    100% { transform: translateX(0%); opacity: 0; }
+}
+
+@keyframes slideLeft {
+    0% { transform: translateX(0%); opacity: 0; }
+    2% { opacity: 1; }
+    98% { opacity: 1; }
+    100% { transform: translateX(-140%); opacity: 0; }
+}
+
+/* ========== MOBILE MARQUEE OPTIMIZATIONS ========== */
+/* EXACT BLUEPRINT from original styles.css */
+@media (max-width: 768px) {
+    /* OPPOSITE DIRECTIONS - matching distances for both */
+    @keyframes slideRightMobile {
+        0% { transform: translateX(-610%); opacity: 0; }
+        1% { opacity: 1; }
+        99% { opacity: 1; }
+        100% { transform: translateX(0%); opacity: 0; }
+    }
+    
+    @keyframes slideLeftMobile {
+        0% { transform: translateX(0%); opacity: 0; }
+        1% { opacity: 1; }
+        99% { opacity: 1; }
+        100% { transform: translateX(-900%); opacity: 0; }
+    }
+    
+    /* Even slower, especially bottom marquee */
+    .marquee-right {
+        animation: slideRightMobile 80s linear infinite !important;
+    }
+    
+    .marquee-left {
+        animation: slideLeftMobile 80s linear infinite !important;
+    }
+    
+    /* BIGGER mobile marquees to hug edges better */
+    .marquee-right, .marquee-left {
+        height: 120px !important; /* Much taller than 80px */
+    }
+    
+    /* Lift bottom marquee away from Safari URL bar */
+    .marquee-left {
+        bottom: 15px !important; /* Add space above URL bar */
+    }
+    
+    .marquee img {
+        height: 120px !important; /* Match marquee height */
+        margin-right: 20px !important; /* Keep spacing */
+        width: auto; /* Natural width - no restrictions */
+    }
+}
+
+/* ========== CENTERED HEADSHOTS ========== */
+/* All 3 headshots displayed side by side */
+
+.headshot-container {
+    position: fixed;
+    top: 180px; /* Moved down for better centering at 100% zoom */
+    bottom: 167px; /* Account for bottom marquee lift (152px + 15px) */
+    left: 0;
+    width: 100vw;
+    height: auto; /* height is implied by top/bottom insets */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Above background marquees */
+    min-height: 300px; /* Minimum safe height */
+    /* Mobile loading optimization */
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Mobile loading state - fade in headshots smoothly */
+@media (max-width: 768px) {
+    body.home-page-loading .headshot-container {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    }
+    
+    /* Hide navigation during loading to prevent red button flash */
+    body.home-page-loading .navigation-modal,
+    body.home-page-loading .nav-menu,
+    body.home-page-loading .nav-link {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: none !important; /* No transition during loading */
+    }
+    
+    body.content-ready .headshot-container {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s ease-in-out 0.3s, transform 0.6s ease-in-out 0.3s; /* Delayed appearance */
+    }
+    
+    /* Show navigation after loading completes */
+    body.content-ready .navigation-modal,
+    body.content-ready .nav-menu,
+    body.content-ready .nav-link {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transition: opacity 0.4s ease-in-out 0.5s !important; /* Delayed fade-in after content loads */
+    }
+}
+
+.headshots-gallery {
+    /* Use grid for precise equal spacing between columns */
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content; /* size to content for each column */
+    column-gap: 80px; /* Equal horizontal space between items */
+    margin: 0; /* avoid extra space that biases vertical centering */
+    align-items: stretch; /* match tallest column (headshots) */
+    justify-content: center; /* center the 3-column group within container */
+    /* Let the gallery size to its content so we can center it vertically */
+    height: auto;
+}
+
+.headshot-item {
+        width: min(280px, calc((100vw - 120px) / 3)); /* Responsive width, max 280px */
+        /* Keep a comfortable card height; never exceed middle gap height */
+        height: min(
+            clamp(380px, 60vh, 720px),
+            calc(100vh - (2 * (var(--marquee-h) + var(--marquee-gap))) - 8px)
+        );
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+.headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Name item in center position */
+.name-item {
+    /* Grid with name at the very top and menu filling the remaining space */
+    display: grid;
+    grid-template-rows: auto minmax(var(--menu-min), 1fr); /* name on top, menu is at least --menu-min */
+    row-gap: 10px; /* reduced space between name and nav */
+    justify-items: center; /* center name horizontally */
+    align-items: stretch; /* ensure full height when gallery stretches items */
+    /* Let the column size to the content so it sits exactly between headshots */
+    width: auto;
+    flex: 0 0 auto; /* do not stretch or shrink */
+    height: 100%; /* exactly match headshot height */
+    min-height: 0; /* allow grid children to grow within */
+    padding-top: 0;
+}
+
+.name-content {
+    text-align: center;
+    padding: 0; /* Remove padding since no background container */
+    background: none; /* Remove background */
+    backdrop-filter: none; /* Remove backdrop filter */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove box shadow */
+    width: fit-content; /* Only as wide as content needs */
+    margin: 20px auto 0 auto; /* Move down from headshots, center horizontally */
+    /* Place in the first row so its top aligns with headshots */
+    grid-row: 1;
+}
+
+.actor-name-center {
+    color: #dc2626;
+    font-family: 'Georgia', serif;
+    font-size: 3.2em; /* Larger for single line */
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-shadow: 
+        0 0 30px rgba(220, 38, 38, 0.8), 
+        0 0 60px rgba(220, 38, 38, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 100px rgba(220, 38, 38, 0.2); /* Enhanced multi-layer glow in red */
+    line-height: 1.05; /* slightly tighter */
+    margin: 0 0 20px 0; /* More space between name and profession */
+    white-space: nowrap; /* Keep on single line */
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    animation: subtleShine 4s ease-in-out infinite alternate;
+}
+
+/* Subtle shine animation */
+@keyframes subtleShine {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+    }
+}
+
+.actor-title {
+    color: #dc2626; /* Red color to match the name */
+    font-family: 'Georgia', serif;
+    font-size: 1.25em; /* slightly smaller to slim the tile */
+    font-weight: 200; /* Even lighter weight */
+    letter-spacing: 10px; /* slightly reduced spacing */
+    text-shadow: 
+        0 0 20px rgba(220, 38, 38, 0.6),
+        0 1px 3px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(220, 38, 38, 0.3); /* Enhanced glow for subtitle in red */
+    margin: 0;
+    opacity: 0.85;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: subtleGlow 3s ease-in-out infinite alternate;
+}
+
+/* Subtle glow animation for subtitle */
+@keyframes subtleGlow {
+    0% {
+        opacity: 0.85;
+    }
+    100% {
+        opacity: 0.95;
+    }
+}
+
+/* Navigation Modal Container */
+.navigation-modal {
+    width: 100%; /* Match parent width */
+    /* Occupy entire grid row height so it reaches the bottom */
+    height: 100%;
+    align-self: stretch;
+    /* Height is governed by grid track minmax; no explicit min here */
+    margin-top: 0; /* spacing handled by grid row-gap */
+    padding: 20px 25px;
+    border-radius: 12px;
+    background: transparent; /* Make background transparent */
+    backdrop-filter: none; /* Remove backdrop filter */
+    border: none; /* Remove border for more breathing room */
+    box-shadow: none; /* Remove box shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Fill the remaining height under the name so it reaches the bottom of the headshots */
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Main Navigation Styles */
+.main-navigation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-menu {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 28px; /* Increased vertical and horizontal spacing */
+    width: 100%;
+    max-width: 400px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    background: rgba(40, 40, 40, 0.9); /* Brighter base background */
+    backdrop-filter: blur(15px) brightness(1.1); /* Enhanced blur and brightness */
+    border: 1px solid transparent; /* Remove visible border */
+    border-radius: 10px; /* Slightly more rounded */
+    color: #dc2626; /* Red text color */
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-height: 48px;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1); /* Multi-layer glow with glowing outline */
+}
+
+.nav-link:hover {
+    background: rgba(60, 60, 60, 0.95); /* Brighter hover background */
+    border-color: transparent; /* Keep border transparent on hover */
+    transform: translateY(-3px) scale(1.02); /* Slight scale effect */
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(255, 255, 255, 0.1),
+        0 0 0 2px rgba(255, 255, 255, 0.5),
+        0 0 12px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15); /* Enhanced multi-layer glow with stronger outline */
+    color: #ef4444; /* Brighter red on hover */
+    text-shadow: 0 0 15px rgba(220, 38, 38, 0.5); /* Red text glow */
+}
+
+.nav-text {
+    font-family: 'Georgia', serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.download-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    background: rgba(40, 40, 40, 0.9); /* Same as nav-link */
+    backdrop-filter: blur(15px) brightness(1.1); /* Same as nav-link */
+    border: 1px solid transparent; /* Same as nav-link */
+    border-radius: 10px; /* Same as nav-link */
+    color: #dc2626; /* Red text color to match other nav buttons */
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-height: 48px;
+    gap: 8px;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1); /* Same multi-layer glow as nav-link */
+}
+
+.download-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.download-link:hover {
+    background: rgba(60, 60, 60, 0.95); /* Same brighter hover background as nav-link */
+    border-color: transparent; /* Keep border transparent on hover */
+    color: #ffd700; /* Gold color on hover for download button */
+    transform: translateY(-3px) scale(1.02); /* Same scale effect as nav-link */
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 0 12px rgba(255, 255, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15); /* Same enhanced glow as nav-link */
+}
+
+.download-link:hover .download-icon {
+    opacity: 1;
+    transform: translateY(1px);
+}
+
+/* Social Media Section */
+.social-media {
+    grid-column: 1 / -1; /* Span both columns */
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.social-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* Space between Instagram and IMDB */
+    width: 100%;
+}
+
+.social-label {
+    color: #cccccc;
+    font-size: 0.85em;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-label::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 50%;
+    background: linear-gradient(90deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.social-links:hover .social-label::after {
+    height: 2px;
+    box-shadow: 0 0 8px rgba(240, 148, 51, 0.4);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(240, 148, 51, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    background-clip: padding-box;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    border-radius: 50%;
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 
+        0 6px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(240, 148, 51, 0.5),
+        0 0 50px rgba(240, 148, 51, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.social-link:hover::before {
+    transform: translateX(100%);
+}
+
+/* IMDB Specific Styles */
+.imdb-label {
+    color: #f5c518 !important;
+}
+
+.imdb-label::after {
+    background: #f5c518 !important;
+    height: 1px !important; /* Match Instagram underline thickness */
+}
+
+.social-links:hover .imdb-label::after {
+    height: 2px !important; /* Match Instagram hover thickness */
+    box-shadow: 0 0 8px rgba(245, 197, 24, 0.4) !important;
+}
+
+.imdb-link {
+    background: #f5c518 !important;
+    color: #000000 !important;
+    border-color: rgba(245, 197, 24, 0.6) !important;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(245, 197, 24, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.imdb-link::before {
+    background: linear-gradient(45deg, transparent 30%, rgba(245, 197, 24, 0.1) 50%, transparent 70%) !important;
+}
+
+.imdb-link:hover {
+    box-shadow: 
+        0 6px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(245, 197, 24, 0.7),
+        0 0 50px rgba(245, 197, 24, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    border-color: rgba(245, 197, 24, 0.8) !important;
+}
+
+/* Instagram Specific Styles */
+.instagram-link {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(240, 148, 51, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.instagram-link:hover {
+    box-shadow: 
+        0 6px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(240, 148, 51, 0.6),
+        0 0 50px rgba(220, 39, 67, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Ensure both social icons have consistent visual size */
+.social-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* IMDB text styling */
+.imdb-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000000 !important;
+    text-transform: none;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive design */
+@media (max-width: 968px) {
+    .headshot-container {
+        top: 152px; /* Fixed positioning */
+        bottom: 152px;
+        height: auto;
+    }
+    
+    .headshots-gallery {
+        gap: 60px; /* Maintain wider spacing */
+        align-items: stretch; /* keep columns equal height */
+    }
+    
+    .headshot-item {
+        width: min(240px, calc((100vw - 80px) / 3));
+        height: 100%;
+    }
+    
+    .name-item {
+        width: auto; /* keep centered based on content */
+        height: 100%; /* stretch with headshots at this width too */
+        padding-top: 0; /* Align with headshots */
+    }
+    
+    .name-content {
+        padding: 12px 26px; /* Slimmer on tablet */
+    }
+    
+    .navigation-modal {
+        padding: 18px 22px;
+        margin-top: 0; /* grid handles spacing */
+    }
+    
+    .nav-menu {
+        gap: 10px 16px;
+        max-width: 350px;
+    }
+    
+    .nav-link {
+        font-family: 'Georgia', serif;
+        padding: 10px 14px;
+        font-size: 0.85em;
+        min-height: 44px;
+    }
+    
+    .social-link {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2em;
+    }
+    
+    .actor-name-center {
+        font-family: 'Georgia', serif;
+        font-size: 2.8em; /* Scaled down for tablet */
+        letter-spacing: 4px;
+    }
+    
+    .actor-title {
+        font-family: 'Georgia', serif;
+        font-size: 1.1em;
+        letter-spacing: 9px;
+    }
+    
+    .marquee img {
+        width: auto; /* Natural width */
+        height: var(--marquee-h);
+    }
+}
+
+@media (max-width: 768px) {
+    .headshot-container {
+        top: 120px !important; /* Closer to top marquee */
+        bottom: 152px !important;
+        height: auto !important;
+        padding: 10px !important;
+    }
+    
+    .headshots-gallery {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        height: 100% !important;
+        align-items: center !important;
+    }
+    
+    /* Headshots positioned above the name container */
+    .headshot-item {
+        width: 120px !important;
+        height: 150px !important;
+        flex-shrink: 0 !important;
+        order: 1 !important; /* Headshots come first */
+    }
+    
+    /* Position headshots side by side at the top */
+    .headshot-item:first-child {
+        position: absolute !important;
+        left: 50% !important;
+        top: 15px !important; /* Slightly higher */
+        transform: translateX(-130px) !important; /* Left headshot */
+        z-index: 10 !important;
+    }
+    
+    .headshot-item:last-child {
+        position: absolute !important;
+        right: 50% !important;
+        top: 15px !important; /* Slightly higher */
+        transform: translateX(130px) !important; /* Right headshot */
+        z-index: 10 !important;
+    }
+    
+    /* Name container positioned below headshots - FULL WIDTH EDGE TO EDGE */
+    .name-item {
+        order: 2 !important;
+        width: calc(100vw - 24px) !important; /* Almost full width - comfortable spacing from edges */
+        height: auto !important;
+        margin: 190px 12px 10px 12px !important; /* Moved up more to give menu container more height to stretch */
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        position: relative !important;
+        z-index: 20 !important;
+        left: 0 !important; /* Ensure it starts at left edge */
+        right: 0 !important; /* Ensure it goes to right edge */
+    }
+    
+    .name-content {
+        padding: 0 !important; /* Remove padding since no background container */
+        margin: 30px 0 0 0 !important; /* Bring name down a bit more on mobile */
+        width: 100% !important;
+        background: none !important; /* Remove background */
+        backdrop-filter: none !important; /* Remove backdrop filter */
+        border: none !important; /* Remove border */
+        box-shadow: none !important; /* Remove box shadow */
+    }
+    
+    /* Navigation modal below name - COMPACT 2-COLUMN LAYOUT */
+    .navigation-modal {
+        order: 3 !important;
+        position: relative !important;
+        width: 100% !important;
+        margin: 0 0 8px 0 !important; /* Add small bottom margin to prevent overlap */
+        padding: 8px !important; /* Slightly reduced padding for more space */
+        z-index: 15 !important;
+        flex-grow: 1 !important;
+        max-height: none !important; /* Remove height constraint for 2-column layout */
+        overflow-y: visible !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+    }
+    
+    .nav-menu {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* 2 columns for mobile */
+        gap: 8px 8px !important; /* Increased vertical spacing - row gap, column gap */
+        width: 100% !important;
+        max-width: none !important;
+    }
+    
+    .nav-item {
+        margin: 0 !important;
+    }
+    
+    .nav-link {
+        font-family: 'Georgia', serif !important;
+        padding: 6px 4px !important; /* Tighter padding for more compact buttons */
+        font-size: 1.1em !important; /* Much larger text for better readability */
+        min-height: 40px !important; /* Reduced height for tighter fit */
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important; /* Stack icon and text vertically */
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Special layout for download button - keep icon and text horizontal */
+    .download-link {
+        flex-direction: row !important; /* Horizontal layout for download button */
+        gap: 4px !important; /* Tight gap between icon and text */
+    }
+    
+    .nav-icon {
+        font-size: 1.4em !important; /* Much bigger icons to match text */
+        margin-right: 0 !important; /* No right margin for stacked layout */
+        margin-bottom: 2px !important; /* Tighter space below icon */
+    }
+    
+    .nav-text {
+        font-family: 'Georgia', serif !important;
+        font-size: 1.0em !important; /* Much larger text for better mobile readability */
+        line-height: 1.1 !important; /* Tighter line height */
+    }
+    
+    /* Enhanced mobile menu button styling */
+    .nav-link {
+        background: rgba(40, 40, 40, 0.7) !important; /* Subtle dark background */
+        backdrop-filter: blur(15px) brightness(1.1) !important; /* Enhanced glassmorphism */
+        border: 1px solid transparent !important; /* Remove border */
+        border-radius: 10px !important; /* Rounded corners */
+        color: #dc2626 !important; /* Red text color for mobile */
+        box-shadow: 
+            0 4px 16px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(0, 0, 0, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.3),
+            0 0 6px rgba(255, 255, 255, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important; /* Multi-layer shadows with glowing outline */
+        transition: all 0.2s ease !important; /* Smooth hover transitions */
+    }
+    
+    /* Resume button special styling for mobile - now matches nav-link styling */
+    .download-link {
+        background: rgba(40, 40, 40, 0.7) !important; /* Same as nav-link */
+        backdrop-filter: blur(15px) brightness(1.1) !important; /* Same as nav-link */
+        border: 1px solid transparent !important; /* Same as nav-link */
+        border-radius: 10px !important; /* Same as nav-link */
+        color: #dc2626 !important; /* Red text color to match other nav buttons */
+        box-shadow: 
+            0 4px 16px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(0, 0, 0, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.3),
+            0 0 6px rgba(255, 255, 255, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important; /* Same multi-layer glow as nav-link */
+    }
+    
+    .nav-link:hover {
+        background: rgba(50, 50, 50, 0.8) !important; /* Slightly brighter on hover */
+        border: 1px solid transparent !important; /* Remove border on hover */
+        color: #ef4444 !important; /* Brighter red on hover for mobile */
+        box-shadow: 
+            0 6px 20px rgba(0, 0, 0, 0.4),
+            0 0 30px rgba(255, 255, 255, 0.1),
+            0 0 0 2px rgba(255, 255, 255, 0.4),
+            0 0 10px rgba(255, 255, 255, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15) !important; /* Enhanced glow with stronger outline on hover */
+        transform: translateY(-1px) !important; /* Subtle lift effect */
+        text-shadow: 0 0 8px rgba(220, 38, 38, 0.4) !important; /* Red text glow on mobile hover */
+    }
+    
+    .download-icon {
+        width: 14px !important;
+        height: 14px !important;
+        opacity: 0.9 !important;
+        flex-shrink: 0 !important; /* Prevent icon from shrinking */
+    }
+    
+    /* Ensure download button text doesn't wrap */
+    .download-link .nav-text {
+        white-space: nowrap !important;
+        font-size: 0.9em !important; /* Slightly smaller text to fit better */
+    }
+    
+    /* Resume button hover styling for mobile - gold color on hover */
+    .download-link:hover {
+        background: rgba(50, 50, 50, 0.8) !important; /* Same as nav-link hover */
+        border: 1px solid transparent !important; /* Same as nav-link hover */
+        color: #ffd700 !important; /* Gold color on hover for download button */
+        transform: translateY(-3px) scale(1.02) !important; /* Same transform as nav-link */
+        box-shadow: 
+            0 6px 20px rgba(0, 0, 0, 0.4),
+            0 0 30px rgba(255, 255, 255, 0.1),
+            0 0 0 2px rgba(255, 255, 255, 0.4),
+            0 0 10px rgba(255, 255, 255, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15) !important; /* Same enhanced glow as nav-link */
+    }
+    
+    .download-link:hover .download-icon {
+        opacity: 1 !important;
+        transform: translateY(1px) !important;
+    }
+    
+    .social-media {
+        grid-column: 1 / -1 !important; /* Span both columns on mobile */
+        margin-top: 8px !important; /* Reduced margin */
+        text-align: center !important;
+    }
+    
+    .social-container {
+        display: flex !important;
+        flex-direction: row !important; /* Keep side by side on mobile */
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 20px !important; /* Reduced gap for mobile */
+        width: 100% !important;
+    }
+    
+    .social-icons {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    .social-link {
+        width: 36px !important; /* Same size as desktop for full circle visibility */
+        height: 36px !important; /* Same size as desktop for full circle visibility */
+        font-size: 1.0em !important; /* Keep desktop font size */
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background-clip: padding-box !important;
+    }
+    
+    /* Mobile IMDB specific styles */
+    .imdb-link {
+        border: 1px solid rgba(245, 197, 24, 0.2) !important;
+    }
+    
+    /* Ensure IMDB text is properly sized on mobile */
+    .imdb-text {
+        font-size: 11px !important; /* Keep same size as desktop */
+    }
+    
+    .actor-name-center {
+        font-family: 'Georgia', serif !important;
+        font-size: 1.4em !important; /* Smaller for more compact name container */
+        letter-spacing: 2px !important;
+        margin: 0 0 20px 0 !important; /* More space between name and ACTOR */
+    }
+    
+    .actor-title {
+        font-family: 'Georgia', serif !important;
+        font-size: 0.75em !important; /* Smaller subtitle */
+        letter-spacing: 5px !important; /* Slightly reduced letter spacing */
+        margin: -5px 0 0 0 !important; /* Move up slightly to center in gap */
+    }
+    
+    .marquee img {
+        width: auto; /* Natural width */
+        height: var(--marquee-h);
+        margin: 0 6px !important; /* Tighter spacing between images for mobile */
+    }
+}
+
+/* Short-viewport safeties: use fixed values instead of responsive ones */
+@media (max-height: 850px) {
+    :root { --marquee-h: 130px; --marquee-gap: 2px; }
+}
+
+@media (max-height: 720px) {
+    :root { --marquee-h: 120px; --center-min: 380px; --marquee-gap: 2px; }
+}
+
+@media (max-height: 640px) {
+    :root { --marquee-h: 110px; --center-min: 360px; --marquee-gap: 2px; }
+}
+
+/* Taller viewport tuning: fixed values to prevent zoom scaling */
+@media (min-height: 850px) {
+    :root {
+        --marquee-h: 170px;
+        --marquee-gap: 2px;
+    }
+}
+
+@media (min-height: 1000px) {
+    :root {
+        --marquee-h: 190px;
+        --marquee-gap: 2px;
+    }
+}
+
+/* ========== PARALLAX TRANSITION STYLES ========== */
+
+/* These will be used for the transition between pages */
+.page-transition-active {
+    pointer-events: none; /* Prevent interactions during transition */
+}
+
+/* Slide marquees off screen like a train passing by */
+.parallax-slide-out .marquee-right {
+    animation: trainExitRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards !important; /* Faster, snappier */
+}
+
+.parallax-slide-out .marquee-left {
+    animation: trainExitLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards !important; /* Faster exit */
+}
+
+/* Ensure navigation transition overrides mobile loading states */
+@media (max-width: 768px) {
+    .parallax-slide-out .background-marquees {
+        animation-play-state: running !important;
+        opacity: 1 !important;
+        transition: none !important; /* Override loading transition during navigation */
+    }
+    
+    .parallax-slide-out .marquee-right {
+        animation: trainExitRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+    }
+    
+    .parallax-slide-out .marquee-left {
+        animation: trainExitLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards !important;
+    }
+}
+
+@keyframes trainExitRight {
+    /* No 0% keyframe - let it start from current position */
+    100% { 
+        transform: translateX(200vw); /* Just go directly to exit position */
+        opacity: 0.9;
+    }
+}
+
+@keyframes trainExitLeft {
+    /* No 0% keyframe - let it start from current position */
+    100% { 
+        transform: translateX(-180vw); /* Just go directly to exit position */
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Ensure the background marquees container doesn't interfere */
+.parallax-slide-out .background-marquees {
+    overflow: hidden !important; /* Hide anything that slides outside */
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+/* Force marquees to have no width constraints during exit */
+.parallax-slide-out .marquee-left,
+.parallax-slide-out .marquee-right {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+/* Slide center content up and out */
+.parallax-slide-out .headshot-container {
+    transform: translateY(-100vh) !important;
+    opacity: 0 !important;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-delay: 0.2s !important; /* Start moving shortly after top marquee begins */
+}
+
+/* Ensure navigation transition overrides mobile loading states */
+@media (max-width: 768px) {
+    .parallax-slide-out .headshot-container {
+        transform: translateY(-100vh) !important;
+        opacity: 0 !important;
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transition-delay: 0.2s !important;
+        /* Override any mobile loading animations */
+        animation: none !important;
+    }
+}
+
+/* ========== CONTACT CARD STYLES ========== */
+
+.contact-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+    /* Fade transition properties */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    pointer-events: none;
+}
+
+.contact-card.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.contact-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.contact-header h2 {
+    color: #d4af37;
+    font-family: 'Georgia', serif;
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    white-space: nowrap;
+}
+
+.close-contact {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.close-contact:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #d4af37;
+    transform: scale(1.1);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-section {
+    text-align: center;
+}
+
+.contact-section h3 {
+    color: #d4af37;
+    font-family: 'Georgia', serif;
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+}
+
+.contact-section a {
+    color: #ffffff;
+    font-family: 'Georgia', serif;
+    font-size: 1em;
+    text-decoration: underline;
+    display: block;
+    margin: 8px 0;
+    padding: 8px 0;
+    transition: all 0.3s ease;
+}
+
+.contact-section a:hover {
+    color: #d4af37;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+@media (max-width: 768px) {
+    .contact-card {
+        width: 85%;
+        max-width: 350px;
+        padding: 25px;
+    }
+    
+    .contact-header h2 {
+        font-size: 1.2em;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
+
+/* Contact card visibility controls - now handled by main .contact-card styles above */
+
+/* Hide navigation when contact is shown with smooth transition */
+.nav-menu.hide {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    pointer-events: none;
+}
+
+.nav-menu {
+    transition: opacity 0.3s ease-in;
+}
+
+/* Mobile responsive for contact card */
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .contact-card {
+        padding: 20px;
+    }
+    
+    .contact-card h2 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+
+    .close-contact {
+        top: -10px;
+        right: -8px;
+        width: auto;
+        height: auto;
+        font-size: 20px;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 5px;
+    }
+    
+    /* On mobile, when contact is active, make contact card fill entire middle container */
+    .middle-container.contact-active {
+        position: relative;
+    }
+    
+    .middle-container.contact-active .contact-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        border-radius: 20px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        /* Enhanced mobile fade transition */
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        /* Prevent visual artifacts */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    
+    /* Hide all other content when contact is active with smooth transition */
+    .middle-container.contact-active .nav-menu,
+    .middle-container.contact-active .instagram-section {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-out;
+    }
+    
+    .nav-menu.hide {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.3s ease-out !important;
+    }
+    
+    /* Ensure navigation buttons are completely hidden on mobile when contact is shown */
+    .nav-menu.hide .nav-link,
+    .nav-menu.hide a {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
+/* ========== PHONE NUMBER LINK STYLES ========== */
+
+.phone-link, .email-link {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.phone-link:hover, .email-link:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* No clipboard icons needed */
+
+/* Copy notification styles are handled inline via JavaScript for better control */
+
+/* ========== NO REEL LAYOUT ADJUSTMENTS ========== */
+
+/* When no reel is configured, adjust the navigation layout */
+.nav-menu.no-reel-layout {
+    /* Keep the 2x2 grid for the main buttons */
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+}
+
+/* Position resume download button at the bottom center when no reel */
+.nav-menu.no-reel-layout .nav-item:has(.download-link) {
+    grid-column: 1 / -1; /* Span both columns */
+    margin-top: 15px;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Move social media section up when no reel */
+.nav-menu.no-reel-layout .social-media {
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    /* Mobile adjustments for no-reel layout */
+    .nav-menu.no-reel-layout {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .nav-menu.no-reel-layout .nav-item:has(.download-link) {
+        grid-column: 1 / -1; /* Span all columns (same as desktop) */
+        margin-top: 10px;
+        display: flex; /* Ensure flexbox for centering */
+        justify-content: center; /* Center the button */
+        align-items: center;
+    }
+    
+    /* Make sure the download button itself stretches properly on mobile */
+    .nav-menu.no-reel-layout .download-link {
+        width: 100%; /* Full width of the container */
+        max-width: none; /* Remove any width restrictions */
+    }
+}
+
+/* ========== NO AGENT LAYOUT ADJUSTMENTS ========== */
+
+/* When no agent is configured, center the direct contact */
+.contact-card.no-agent-layout .contact-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.contact-card.no-agent-layout .contact-section:first-child {
+    /* Center the direct contact section */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-card.no-agent-layout .contact-section:last-child {
+    /* Hide the agent section */
+    display: none;
+}

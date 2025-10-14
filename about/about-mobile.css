@@ -1,0 +1,261 @@
+/* About Page - Mobile CSS */
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%);
+    color: white;
+    overflow: auto;
+    height: auto;
+    min-height: 100vh;
+}
+
+/* About Page Container */
+.about-page-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d0618 0%, #1a0d2e 30%, #241545 60%, #0d0618 100%);
+    color: white;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    
+    /* Fade in animation */
+    animation: fadeInPage 0.6s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* About Page Header - Mobile Sticky */
+.about-page-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    top: env(safe-area-inset-top);
+    background: rgba(13, 6, 24, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+    padding: 15px 20px;
+    padding-top: calc(15px + env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #dc2626;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    min-height: 70px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.about-page-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #dc2626;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+    letter-spacing: 3px;
+    text-shadow: 
+        0 0 30px rgba(220, 38, 38, 0.8), 
+        0 0 60px rgba(220, 38, 38, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 100px rgba(220, 38, 38, 0.2);
+    line-height: 1.05;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: subtleShine 4s ease-in-out infinite alternate;
+}
+
+/* Invisible spacer to balance the layout */
+.header-spacer {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+@keyframes subtleShine {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+    }
+}
+
+.about-main-content {
+    max-width: 95%;
+    padding: 45px 15px 15px 15px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Actor Measurements Section - Mobile */
+.actor-measurements {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(220, 38, 38, 0.1);
+    border-radius: 6px;
+    border: 1px solid transparent;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.measurements-content {
+    text-align: center;
+}
+
+.physical-stats {
+    font-size: 0.85rem;
+    color: #dc2626;
+    margin: 0 0 6px 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.age-stats {
+    font-size: 0.9rem;
+    color: #dc2626;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Back Button - Mobile (Arrow Only) */
+.back-button {
+    background: rgba(40, 40, 40, 0.9);
+    backdrop-filter: blur(15px) brightness(1.1);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #dc2626;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 500;
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.back-button:hover {
+    background: rgba(60, 60, 60, 0.95);
+    color: #ef4444;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 0 10px rgba(255, 255, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Article Content - Mobile */
+.about-article {
+    width: 100%;
+}
+
+.article-content {
+    line-height: 1.7;
+    font-size: 1em;
+}
+
+.featured-headshot-float {
+    width: 185px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    float: left;
+    margin: 0 12px 12px 0;
+}
+
+.article-content p {
+    font-size: 0.95em;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    color: #aaaaaa;
+    text-align: left;
+}
+
+/* Extra small mobile - optimize for very small screens */
+@media (max-width: 480px) {
+    .about-page-header {
+        padding: 8px 12px;
+    }
+    
+    .back-button {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1em;
+    }
+    
+    .about-page-title {
+        font-size: 1.8em;
+        letter-spacing: 3px;
+    }
+    
+    .featured-headshot-float {
+        width: 155px;
+        margin: 0 10px 10px 0;
+    }
+    
+    .article-content p {
+        font-size: 0.9em;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        text-align: left;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .about-page-container {
+        margin-top: 0;
+        padding-top: 0;
+        padding-top: env(safe-area-inset-top, 0);
+    }
+    
+    .about-page-header {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        margin-top: 0;
+        top: env(safe-area-inset-top, 0);
+    }
+}

@@ -1,0 +1,219 @@
+/* Reel Page - Mobile CSS */
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Reel Page Container */
+.reel-page-container {
+    min-height: 100vh;
+    background: #000;
+    color: white;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    
+    /* Fade in animation */
+    animation: fadeInPage 0.6s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reel Page Header */
+.reel-page-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 12px 20px;
+    border-bottom: 2px solid #dc2626;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.reel-page-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+    letter-spacing: 2px;
+    text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.6), 
+        0 0 40px rgba(255, 255, 255, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: subtleShine 4s ease-in-out infinite alternate;
+}
+
+@keyframes subtleShine {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+    }
+}
+
+/* Back Button - Mobile (Circular) */
+.back-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button:hover, .back-button:active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Header Spacer */
+.header-spacer {
+    width: 40px;
+    flex-shrink: 0;
+}
+
+/* Main Content */
+.reel-main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: calc(100vh - 60px);
+    padding: 0 15px;
+}
+
+/* Video Container */
+.video-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 80px auto 0 auto;
+}
+
+/* Video Container */
+.video-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Custom Scrollbar Styling */
+body::-webkit-scrollbar {
+    width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 8px 0;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    margin: 1px 0;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Small screen optimizations */
+@media (max-width: 480px) {
+    .reel-main-content {
+        padding: 0 10px;
+        height: calc(100vh - 55px);
+    }
+    
+    .video-container {
+        margin: 60px auto 0 auto;
+    }
+    
+    .reel-page-header {
+        padding: 10px 15px;
+        height: 55px;
+    }
+    
+    .reel-page-title {
+        font-size: 1.6em;
+        letter-spacing: 1.5px;
+    }
+    
+    .back-button {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1em;
+    }
+    
+    .header-spacer {
+        width: 36px;
+    }
+    
+    .reel-main-content {
+        min-height: calc(100vh - 55px);
+    }
+}

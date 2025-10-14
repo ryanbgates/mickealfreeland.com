@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Mickeal Freeland - Actor</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn about Mickeal Freeland, a professional actor from Texas. Born in 1985, Mickeal has appeared in films including Thirty Dirty, The Break of Dawn, and Three Days or Else, earning six Best Actor awards.">
+    <meta name="keywords" content="Mickeal Freeland, actor biography, Texas actor, about Mickeal Freeland, actor background">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://mickealfreeland.com/about/">
+    <meta property="og:title" content="About Mickeal Freeland - Professional Actor">
+    <meta property="og:description" content="Learn about Mickeal Freeland, a professional actor from Texas with experience in film, television, and commercials.">
+    <meta property="og:image" content="https://mickealfreeland.com/mickealfreeland.com headshots/Headshot 2.JPG">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="About Mickeal Freeland - Professional Actor">
+    <meta property="twitter:description" content="Learn about Mickeal Freeland, a professional actor from Texas.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="/about/about-mobile.css">
+</head>
+<body>
+    <div class="about-page-container">
+        <!-- Header Section -->
+        <header class="about-page-header">
+            <button onclick="fadeToHome()" class="back-button">
+                ←
+            </button>
+            <h1 class="about-page-title">About Mickeal</h1>
+            <div class="header-spacer"></div>
+        </header>
+        
+        <!-- Main Article Content -->
+        <main class="about-main-content">
+            <!-- Actor Measurements -->
+            <div class="actor-measurements">
+                <div class="measurements-content">
+                    <p class="physical-stats">Height: 6'0 | Weight: 180 | Hair: Black | Eyes: Brown</p>
+                    <p class="age-stats">Age: 40 | Can play: 30-45</p>
+                </div>
+            </div>
+            
+            <article class="about-article">
+                <!-- Article Content -->
+                <div class="article-content">
+                
+                <!-- Featured Headshot floated left -->
+                <img src="../mickealfreeland.com headshots/Headshot 2.JPG" alt="Mickeal Freeland" class="featured-headshot-float">
+                
+                <p>Mickeal Freeland was born April 26, 1985 in Round Rock, Texas, and later moved to Houston after his parents' divorce, where he grew up and first discovered his passion for acting. At the age of twelve, during a conversation with his brother and cousin about their futures, he declared, "I want to be an actor." That dream was solidified after being deeply inspired by Denzel Washington's performance in The Hurricane, and later by the standing ovation he received for a high school drama performance.</p>
+                
+                <p>In 2012, when his mother suffered a stroke, he came close to losing her. The experience shook him deeply but also reminded him of a promise he had once made to her — to always pursue his dream of acting. That moment became the turning point that pushed him to commit fully to the craft. He began training at Kim Terry Studios, where Terry encouraged him to attend the Actors, Models & Talent for Christ (AMTC) showcase in 2013. There, he spent a week performing and developing his skills, ultimately earning a nomination for Best Actor. His performance drew the attention of agencies from Los Angeles, New York, and Atlanta, and he was awarded a scholarship at the showcase to attend the New York Film Academy's intensive summer bootcamp program at the Los Angeles campus. In 2021, he continued to strengthen his training in Houston with Ricky Catter and Willie Dirden, studying the Meisner technique, as well as with Deke Anderson at Next Level Studios.</p>
+                
+                <p>His first on-screen roles came in the YouTube series What About Your Friends and the short film First Date in 2013. Since then, he has gone on to star in films such as Thirty Dirty, The Break of Dawn directed by Denise Monet, Deliveries From Eva directed by Lakisha Lemons, and Three Days or Else directed by Ralph Cinque, the latter alongside his late friend Samuel French. That performance earned him six Best Actor awards on the festival circuit and a Best Duo award shared with French. He has upcoming projects Titled Murder on The Blade directed by Denise Monet and Towpath directer by Paul Sinacore starring Academy Award winner Eric Roberts.</p>
+                
+                <p>Though already recognized for his work, he believes his true "big break" is still ahead. His dream collaborations include working with Denzel Washington and Leonardo DiCaprio, two actors he considers guiding inspirations.</p>
+                
+                <p>Beyond the screen, he draws strength from his family, having faced the loss of a sister to cancer at age seven and the passing of his father in 2014. These experiences, though difficult, continue to fuel his determination.</p>
+                
+                <p>A symbolic moment from his past still drives him today: at seventeen, while working at the Tinseltown movie theater, a manager told him, "I better see you on one of these screens one day." To him, that was God's confirmation of his path. He has carried those words ever since — and won't stop until they come true.</p>
+                </div>
+            </article>
+        </main>
+    </div>
+    
+    <script>
+        function fadeToHome() {
+            console.log('Fade to home triggered');
+            
+            // Create a fade overlay
+            const fadeOverlay = document.createElement('div');
+            fadeOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: #000;
+                opacity: 0;
+                z-index: 9999;
+                transition: opacity 0.5s ease-out;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(fadeOverlay);
+            
+            // Trigger fade out
+            setTimeout(() => {
+                fadeOverlay.style.opacity = '1';
+            }, 10);
+            
+            // Navigate after fade completes
+            setTimeout(() => {
+                console.log('Navigating to home');
+                window.location.href = '../index.html';
+            }, 500);
+        }
+    </script>
+</body>
+</html>

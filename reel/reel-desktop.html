@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reel - Mickeal Freeland Actor</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Watch Mickeal Freeland' professional acting reel showcasing his range and talent in film, television, and commercial work.">
+    <meta name="keywords" content="Mickeal Freeland reel, acting reel, demo reel, actor showcase, Mickeal Gates video">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="video.other">
+    <meta property="og:url" content="https://mickealfreeland.com/reel/">
+    <meta property="og:title" content="Acting Reel - Mickeal Freeland">
+    <meta property="og:description" content="Watch Mickeal Freeland' professional acting reel showcasing his range and talent.">
+    <meta property="og:image" content="https://mickealfreeland.com/mickealfreeland.com headshots/Headshot 1.JPG">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="/reel/reel-desktop.css">
+</head>
+<body>
+    <div class="reel-page-container">
+        <!-- Header Section -->
+        <header class="reel-page-header">
+            <button onclick="fadeToHome()" class="back-button">
+                ← Back to Home
+            </button>
+            <h1 class="reel-page-title">Reel</h1>
+        </header>
+        
+        <!-- Main Video Content -->
+        <main class="reel-main-content">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/Hl8wZZ2qoHI" 
+                        title="Mickeal Freeland - Acting Reel" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        function fadeToHome() {
+            console.log('Fade to home triggered');
+            
+            // Create a fade overlay
+            const fadeOverlay = document.createElement('div');
+            fadeOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: #000;
+                opacity: 0;
+                z-index: 9999;
+                transition: opacity 0.5s ease-out;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(fadeOverlay);
+            
+            // Trigger fade out
+            setTimeout(() => {
+                fadeOverlay.style.opacity = '1';
+            }, 10);
+            
+            // Navigate after fade completes
+            setTimeout(() => {
+                console.log('Navigating to home');
+                window.location.href = '../index.html';
+            }, 500);
+        }
+    </script>
+</body>
+</html>

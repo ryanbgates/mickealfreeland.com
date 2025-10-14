@@ -1,0 +1,64 @@
+{
+  "actor": {
+    "name": "MICKEAL FREELAND",
+    "firstName": "Mickeal",
+    "lastName": "Freeland",
+    "fullName": "Mickeal Freeland",
+    "title": "ACTOR",
+    "domain": "mickealfreeland.com"
+  },
+  "personal": {
+    "birthDate": "April 26, 1985",
+    "birthYear": "1985",
+    "birthLocation": "Round Rock, TX",
+    "age": "40",
+    "playingAge": "30-45"
+  },
+  "physical": {
+    "height": "6'0",
+    "weight": "180",
+    "hair": "Black",
+    "eyes": "Brown"
+  },
+  "contact": {
+    "directPhone": "346-254-2893",
+    "directEmail": "mickealfreeland@gmail.com",
+    "agentPhone": "555-987-6543",
+    "agentEmail": "agent@talentgroup.com"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/mike_free85"
+  },
+  "bio": "Jane Smith is an American actor who was born on March 15, 1998, in Austin, Texas. From an early age, she discovered a passion for storytelling and performance...",
+  "credits": {
+    "films": [
+      {
+        "title": "New Movie Title",
+        "role": "LEAD",
+        "director": "Director Name"
+      }
+    ],
+    "commercials": [
+      {
+        "title": "Brand Commercial",
+        "role": "Featured",
+        "description": "Lead role in national campaign"
+      }
+    ],
+    "training": [
+      {
+        "school": "Acting Studio Name",
+        "program": "Method Acting Program"
+      }
+    ],
+    "skills": "Acting • Dancing • Singing • Piano • Horse riding • French accent • Stage combat"
+  },
+  "seo": {
+    "description": "Jane Smith is a professional actor from Texas with credits in film, television, and commercials. View her portfolio, headshots, reel, and contact information.",
+    "keywords": "Jane Smith, actor, Texas actor, film actor, commercial actor, headshots, acting reel, casting"
+  },
+  "portfolio": {
+    "hasReel": false,
+    "hasAgent": false
+  }
+}

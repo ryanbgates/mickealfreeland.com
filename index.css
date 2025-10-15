@@ -344,7 +344,7 @@ body.home-page-loading {
 
 /* Marquee animations with quicker fade on reset */
 @keyframes slideRight {
-    0% { transform: translateX(-140%); opacity: 0; }
+    0% { transform: translateX(-130%); opacity: 0; }
     2% { opacity: 1; }
     98% { opacity: 1; }
     100% { transform: translateX(0%); opacity: 0; }
@@ -362,7 +362,7 @@ body.home-page-loading {
 @media (max-width: 768px) {
     /* OPPOSITE DIRECTIONS - matching distances for both */
     @keyframes slideRightMobile {
-        0% { transform: translateX(-610%); opacity: 0; }
+        0% { transform: translateX(-580%); opacity: 0; }
         1% { opacity: 1; }
         99% { opacity: 1; }
         100% { transform: translateX(0%); opacity: 0; }

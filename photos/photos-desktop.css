@@ -210,8 +210,17 @@ body {
 .gallery-thumbnail[src*="IMG_4102.jpg"],
 .gallery-thumbnail[src*="IMG_3813.jpg"],
 .gallery-thumbnail[src*="IMG_4074.jpg"],
-.gallery-thumbnail[src*="IMG_4078.jpg"] {
+.gallery-thumbnail[src*="IMG_4078.jpg"],
+.gallery-thumbnail[src*="IMG_4114.jpg"],
+.gallery-thumbnail[src*="IMG_4112.jpg"],
+.gallery-thumbnail[src*="IMG_4109.jpg"] {
     object-position: top;
+}
+
+/* Specific positioning for images that need to show face (slightly down from top) */
+.gallery-thumbnail[src*="IMG_4125.jpg"],
+.gallery-thumbnail[src*="IMG_4124.jpg"] {
+    object-position: center 15%;
 }
 
 .photo-item:hover .gallery-thumbnail {

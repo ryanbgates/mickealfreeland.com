@@ -58,7 +58,7 @@
     "keywords": "Jane Smith, actor, Texas actor, film actor, commercial actor, headshots, acting reel, casting"
   },
   "portfolio": {
-    "hasReel": false,
+    "hasReel": true,
     "hasAgent": false
   }
 }

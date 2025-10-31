@@ -99,15 +99,16 @@ body {
 }
 
 .about-main-content {
-    max-width: 920px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 30px 40px;
     text-align: left;
 }
 
 /* Actor Measurements Section */
 .actor-measurements {
-    margin-bottom: 30px;
+    max-width: 920px;
+    margin: 0 auto 30px auto;
     padding: 20px;
     background: rgba(220, 38, 38, 0.1);
     border-radius: 8px;
@@ -202,21 +203,24 @@ body {
 }
 
 /* Custom Scrollbar Styling - Matching Work Page */
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
+html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    margin: 10px 0;
+    background: rgba(13, 6, 24, 0.9);
 }
 
+html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    background: rgba(220, 38, 38, 0.4);
+    border-radius: 5px;
     margin: 2px 0;
 }
 
+html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(220, 38, 38, 0.6);
 }

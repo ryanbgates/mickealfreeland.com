@@ -100,9 +100,77 @@ function initializeMarquees() {
     console.log('✅ Marquees initialized successfully');
 }
 
+function getMarqueeSetLength(images) {
+    const sources = images.map((image) => image.currentSrc || image.src);
+
+    for (let setLength = 1; setLength <= Math.floor(sources.length / 2); setLength++) {
+        let repeats = true;
+
+        for (let index = setLength; index < sources.length; index++) {
+            if (sources[index] !== sources[index % setLength]) {
+                repeats = false;
+                break;
+            }
+        }
+
+        if (repeats) {
+            return setLength;
+        }
+    }
+
+    return images.length % 2 === 0 ? images.length / 2 : images.length;
+}
+
+function ensureTripleMarqueeSets() {
+    document.querySelectorAll('.marquee').forEach((marquee) => {
+        const images = Array.from(marquee.querySelectorAll('img'));
+        if (images.length < 2) {
+            return;
+        }
+
+        const setLength = getMarqueeSetLength(images);
+        marquee.dataset.setLength = setLength;
+
+        while (marquee.querySelectorAll('img').length < setLength * 3) {
+            images.slice(0, setLength).forEach((image) => {
+                const clone = image.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                marquee.appendChild(clone);
+            });
+        }
+
+        marquee.dataset.tripled = 'true';
+    });
+}
+
+function updateMobileMarqueeMetrics() {
+    if (window.innerWidth > 768) {
+        return;
+    }
+
+    document.querySelectorAll('.marquee').forEach((marquee) => {
+        const setLength = Number(marquee.dataset.setLength);
+        const images = Array.from(marquee.querySelectorAll('img'));
+        const thirdSetFirstImage = images[setLength * 2];
+
+        if (!setLength || !thirdSetFirstImage) {
+            return;
+        }
+
+        const distance = Math.max(1, thirdSetFirstImage.offsetLeft - images[0].offsetLeft);
+        const duration = Math.max(70, Math.min(135, distance / 92));
+
+        marquee.style.setProperty('--mobile-marquee-distance', `${distance}px`);
+        marquee.style.setProperty('--mobile-marquee-duration', `${duration.toFixed(2)}s`);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('🚀 Ryan B. Gates Portfolio Loading...');
+    console.log('🚀 Mickeal Freeland Portfolio Loading...');
     
+    ensureTripleMarqueeSets();
+    updateMobileMarqueeMetrics();
+
     // Load actor configuration first
     await loadActorConfig();
     
@@ -146,6 +214,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     console.log('✅ Portfolio loaded and ready!');
 });
+
+window.addEventListener('load', updateMobileMarqueeMetrics);
+window.addEventListener('resize', updateMobileMarqueeMetrics);
 
 // New function to handle the loading sequence
 function initializePageLoad() {
@@ -319,10 +390,21 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // ========== PARALLAX PAGE TRANSITION ==========
+const PAGE_TRANSITION_DELAY = 780;
+
 class ParallaxTransition {
     constructor() {
         this.isTransitioning = false;
         console.log('🎯 ParallaxTransition class initialized');
+    }
+    
+    lockCurrentMarqueePositions() {
+        document.querySelectorAll('.marquee').forEach((marquee) => {
+            const currentTransform = window.getComputedStyle(marquee).transform;
+            if (currentTransform && currentTransform !== 'none') {
+                marquee.style.transform = currentTransform;
+            }
+        });
     }
     
     async transitionToAbout() {
@@ -335,6 +417,7 @@ class ParallaxTransition {
         
         console.log('✅ Starting transition sequence...');
         this.isTransitioning = true;
+        this.lockCurrentMarqueePositions();
         
         console.log('🔒 Adding page-transition-active class to body');
         document.body.classList.add('page-transition-active');
@@ -342,12 +425,12 @@ class ParallaxTransition {
         console.log('🎬 Adding parallax-slide-out class for visual transition');
         document.body.classList.add('parallax-slide-out');
         
-        console.log('⏱️ Starting 825ms timer before navigation...');
+        console.log('⏱️ Starting transition timer before navigation...');
         setTimeout(() => {
             const aboutPath = getNavigationPath('about');
             console.log('🔗 Timer complete, navigating to About URL:', aboutPath);
             window.location.href = aboutPath;
-        }, 825);
+        }, PAGE_TRANSITION_DELAY);
         
         console.log('🎯 Transition sequence setup complete');
     }
@@ -362,6 +445,7 @@ class ParallaxTransition {
         
         console.log('✅ Starting transition sequence...');
         this.isTransitioning = true;
+        this.lockCurrentMarqueePositions();
         
         console.log('🔒 Adding page-transition-active class to body');
         document.body.classList.add('page-transition-active');
@@ -369,12 +453,12 @@ class ParallaxTransition {
         console.log('🎬 Adding parallax-slide-out class for visual transition');
         document.body.classList.add('parallax-slide-out');
         
-        console.log('⏱️ Starting 825ms timer before navigation...');
+        console.log('⏱️ Starting transition timer before navigation...');
         setTimeout(() => {
             const workPath = getNavigationPath('work');
             console.log('🔗 Timer complete, navigating to Work URL:', workPath);
             window.location.href = workPath;
-        }, 825); // Tight timing for seamless transition
+        }, PAGE_TRANSITION_DELAY);
         
         console.log('🎯 Transition sequence setup complete');
     }
@@ -389,6 +473,7 @@ class ParallaxTransition {
         
         console.log('✅ Starting transition sequence...');
         this.isTransitioning = true;
+        this.lockCurrentMarqueePositions();
         
         console.log('🔒 Adding page-transition-active class to body');
         document.body.classList.add('page-transition-active');
@@ -396,12 +481,12 @@ class ParallaxTransition {
         console.log('🎬 Adding parallax-slide-out class for visual transition');
         document.body.classList.add('parallax-slide-out');
         
-        console.log('⏱️ Starting 825ms timer before navigation...');
+        console.log('⏱️ Starting transition timer before navigation...');
         setTimeout(() => {
             const photosPath = getNavigationPath('photos');
             console.log('🔗 Timer complete, navigating to Photos URL:', photosPath);
             window.location.href = photosPath;
-        }, 825); // Tight timing for seamless transition
+        }, PAGE_TRANSITION_DELAY);
         
         console.log('🎯 Transition sequence setup complete');
     }
@@ -416,6 +501,7 @@ class ParallaxTransition {
         
         console.log('✅ Starting transition sequence...');
         this.isTransitioning = true;
+        this.lockCurrentMarqueePositions();
         
         console.log('🔒 Adding page-transition-active class to body');
         document.body.classList.add('page-transition-active');
@@ -423,12 +509,12 @@ class ParallaxTransition {
         console.log('🎬 Adding parallax-slide-out class for visual transition');
         document.body.classList.add('parallax-slide-out');
         
-        console.log('⏱️ Starting 825ms timer before navigation...');
+        console.log('⏱️ Starting transition timer before navigation...');
         setTimeout(() => {
             const reelPath = getNavigationPath('reel');
             console.log('🔗 Timer complete, navigating to Reel URL:', reelPath);
             window.location.href = reelPath;
-        }, 825); // Tight timing for seamless transition
+        }, PAGE_TRANSITION_DELAY);
         
         console.log('🎯 Reel transition sequence setup complete');
     }
@@ -459,7 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Try multiple selectors for the About button
         const aboutSelectors = [
             'a[href="#about"]',
-            'a:contains("About Ryan")',
+            'a:contains("About Mickeal")',
             '.nav-link:contains("About")'
         ];
         
@@ -531,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // ========== WORK & CREDITS BUTTON HANDLER ==========
             console.log('🔍 Setting up Work & Credits button click handler...');
-            const workButton = document.querySelector('a[href="work.html"]');
+            const workButton = document.querySelector('a[onclick="navigateToWork()"]');
             
             if (workButton) {
                 console.log('✅ Found Work & Credits button, adding click handler');
@@ -550,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // ========== PHOTOS BUTTON HANDLER ==========
             console.log('🔍 Setting up Photos button click handler...');
-            const photosButton = document.querySelector('a[href="#photos"]');
+            const photosButton = document.querySelector('a[onclick="navigateToPhotos()"]');
             
             if (photosButton) {
                 console.log('✅ Found Photos button, adding click handler');
@@ -573,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // ========== REEL BUTTON HANDLER ==========
             console.log('🔍 Setting up Reel button click handler...');
-            const reelButton = document.querySelector('a[href="#reel"]');
+            const reelButton = document.querySelector('a[onclick="navigateToReel()"]');
             
             if (reelButton) {
                 console.log('✅ Found Reel button, adding click handler');
